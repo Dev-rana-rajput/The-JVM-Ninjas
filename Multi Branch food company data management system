@@ -1,0 +1,147 @@
+        import java.util.*;
+class FoodItem {
+    private String name;
+    private int quantity;
+    public FoodItem(String name, int quantity) {
+        this.name = name.trim();
+        this.quantity = quantity;
+    }
+    public String getName() {
+        return name;
+    }
+    public int getQuantity() {
+        return quantity;
+    }
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+    @Override
+    public String toString() {
+        return name + " (Quantity: " + quantity + ")";
+    }
+}
+public class MultiBranchFoodCompanyManagementSystem {
+    private static Scanner scanner = new Scanner(System.in);
+    private static List<Branch> branches = new ArrayList<>();
+    public static void main(String[] args) {
+        System.out.println("Welcome to Multi-Branch Food Company Data Management System!");
+        boolean exit = false;
+        while (!exit) {
+            System.out.println("\nMain Menu:");
+            System.out.println("1. Manage Branches");
+            System.out.println("2. Manage Inventory for a Branch");
+            System.out.println("3. List all Branches");
+            System.out.println("4. Exit");
+            System.out.print("Choose an option (1-4): ");
+            int choice = readIntInRange(1, 4);
+            switch (choice) {
+                case 1: manageBranchesMenu(); break;
+                case 2: manageInventoryMenu(); break;
+                case 3: listBranches(); break;
+                case 4: exit = true; break;
+            }
+        }
+        System.out.println("Goodbye!");
+    }
+if (confirm.equals("y") || confirm.equals("yes")) {
+                branches.remove(branch);
+  
+              System.out.println("Branch removed.");
+            } else {
+                System.out.println("Removal cancelled.");
+            }
+        }
+    }
+    private static void addOrUpdateFoodItem(Branch branch) {
+        System.out.print("Enter food item name: ");
+        String name = scanner.nextLine().trim();
+        if (name.isEmpty()) {
+            System.out.println("Food item name cannot be empty.");
+            return;
+        }
+        System.out.print("Enter quantity (>= 0): ");
+        int qty = readNonNegativeInt();
+        branch.addOrUpdateFoodItem(name, qty);
+        System.out.println("Food item '" + name + "' added/updated with quantity " + qty + ".");
+    }
+    private static void removeFoodItem(Branch branch) {
+        if (branch.getInventory().isEmpty()) {
+            System.out.println("No food items to remove in this branch.");
+            return;
+        }
+        System.out.println("Select food item to remove:");
+        List<FoodItem> items = new ArrayList<>(branch.getInventory());
+        for (int i = 0; i < items.size(); i++) {
+            System.out.println((i+1) + ". " + items.get(i).getName() + " (Qty: " + items.get(i).getQuantity() + ")");
+        }
+        System.out.print("Choose item to remove (1-" + items.size() + "): ");
+        int choice = readIntInRange(1, items.size());
+        FoodItem itemToRemove = items.get(choice -1);
+        System.out.print("Are you sure you want to remove '" + itemToRemove.getName() + "'? (y/n): ");
+        String confirm = scanner.nextLine().trim().toLowerCase();
+        if (confirm.equals("y") || confirm.equals("yes")) {
+            branch.removeFoodItem(itemToRemove.getName());
+            System.out.println("Food item removed.");
+        } else {
+            System.out.println("Removal cancelled.");
+        }
+    }
+    private static void listInventory(Branch branch) {
+        Collection<FoodItem> items = branch.getInventory();
+        if (items.isEmpty()) {
+            System.out.println("No food items in inventory for this branch.");
+        } else {
+            System.out.println("Inventory for branch '" + branch.getName() + "':");
+            for (FoodItem item : items) {
+                System.out.println("- " + item);
+            }
+        }
+    }
+    private static Branch selectBranch() {
+        if(branches.isEmpty()) return null;
+        for (int i = 0; i < branches.size(); i++) {
+            System.out.println((i+1) + ". " + branches.get(i).getName());
+        }
+        System.out.print("Select branch number: ");
+        int choice = readIntInRange(1, branches.size());
+        return branches.get(choice - 1);
+    }
+    private static int findBranchIndexByName(String name) {
+        for (int i = 0; i < branches.size(); i++) {
+            if (branches.get(i).getName().equalsIgnoreCase(name.trim())) {
+                return i;
+            }
+        }
+        return -1;
+    }
+    private static int readIntInRange(int min, int max) {
+        while (true) {
+            try {
+                String line = scanner.nextLine().trim();
+                int val = Integer.parseInt(line);
+                if (val >= min && val <= max) {
+                    return val;
+                } else {
+                    System.out.print("Invalid input. Enter a number between " + min + " and " + max + ": ");
+                }
+            } catch (NumberFormatException e) {
+                System.out.print("Invalid input. Enter a valid number: ");
+            }
+        }
+    }
+    private static int readNonNegativeInt() {
+        while (true) {
+            try {
+                String line = scanner.nextLine().trim();
+                int val = Integer.parseInt(line);
+                if (val >= 0) {
+                    return val;
+                } else {
+                    System.out.print("Invalid input. Enter a non-negative number: ");
+                }
+            } catch (NumberFormatException e) {
+                System.out.print("Invalid input. Enter a valid number: ");
+            }
+        }
+    }
+}
