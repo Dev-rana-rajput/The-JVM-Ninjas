@@ -1,0 +1,77 @@
+multi-branch-food-management/
+├── backend/
+│   ├── auth-service/
+│   │   ├── controllers/
+│   │   ├── models/
+│   │   ├── routes/
+│   │   └── app.js
+│   ├── branch-service/
+│   │   ├── controllers/
+│   │   ├── models/
+│   │   ├── routes/
+│   │   └── app.js
+│   ├── inventory-service/
+│   │   ├── controllers/
+│   │   ├── models/
+│   │   ├── routes/
+│   │   └── app.js
+│   ├── order-service/
+│   │   ├── controllers/
+│   │   ├── models/
+│   │   ├── routes/
+│   │   └── app.js
+│   ├── employee-service/
+│   │   ├── controllers/
+│   │   ├── models/
+│   │   ├── routes/
+│   │   └── app.js
+│   ├── customer-service/
+│   │   ├── controllers/
+│   │   ├── models/
+│   │   ├── routes/
+│   │   └── app.js
+│   ├── analytics-service/
+│   │   ├── controllers/
+│   │   ├── models/
+│   │   ├── routes/
+│   │   └── app.js
+│   └── gateway/
+│       └── index.js
+├── frontend/
+│   ├── admin-portal/
+│   │   ├── src/
+│   │   │   ├── components/
+│   │   │   ├── pages/
+│   │   │   └── App.js
+│   │   └── package.json
+│   ├── branch-portal/
+│   │   ├── src/
+│   │   │   ├── components/
+│   │   │   ├── pages/
+│   │   │   └── App.js
+│   │   └── package.json
+│   └── customer-portal/
+│       ├── src/
+│       │   ├── components/
+│       │   ├── pages/
+│       │   └── App.js
+│       └── package.json
+├── database/
+│   ├── mongo/
+│   │   └── init.js
+│   └── redis/
+│       └── init.js
+├── docker/
+│   ├── docker-compose.yml
+│   └── Dockerfiles/
+│       ├── auth-service.Dockerfile
+│       ├── branch-service.Dockerfile
+│       ├── ...
+├── tests/
+│   ├── auth-service/
+│   ├── branch-service/
+│   └── ...
+├── docs/
+│   ├── API.md
+│   └── README.md
+└── package.json
