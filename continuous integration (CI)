@@ -1,0 +1,42 @@
+name: Multi-Branch Food Company CI/CD
+
+on:
+  push:
+    branches:
+      - main
+      - branch-*
+  pull_request:
+    branches:
+      - main
+      - branch-*
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up Java & Maven
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Install Dependencies
+        run: mvn install
+
+      - name: Run Tests
+        run: mvn test
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to Production (Conditional)
+        if: github.ref == 'refs/heads/main'
+        run: echo "Deploying Main Branch to Production..."
+
+      - name: Deploy to Staging (Conditional)
+        if: startsWith(github.ref, 'refs/heads/branch-')
+        run: echo "Deploying to Staging Environment..."
