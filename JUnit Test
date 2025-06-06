@@ -1,0 +1,38 @@
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import java.util.List;
+
+class BranchServiceTest {
+
+    private BranchService branchService;
+
+    @BeforeEach
+    void setUp() {
+        branchService = new BranchService();
+        branchService.addBranch(new Branch(1, "Main Branch", "New York"));
+        branchService.addBranch(new Branch(2, "Secondary Branch", "Los Angeles"));
+    }
+
+    @Test
+    void testAddBranch() {
+        Branch newBranch = new Branch(3, "Test Branch", "Chicago");
+        branchService.addBranch(newBranch);
+
+        assertEquals(3, branchService.getBranches().size());
+        assertTrue(branchService.getBranches().contains(newBranch));
+    }
+
+    @Test
+    void testGetBranchById() {
+        Branch branch = branchService.getBranchById(1);
+        assertNotNull(branch);
+        assertEquals("Main Branch", branch.getName());
+    }
+
+    @Test
+    void testRemoveBranch() {
+        branchService.removeBranch(2);
+        assertNull(branchService.getBranchById(2));
+    }
+}
